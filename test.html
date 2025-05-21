@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Anthony! 🎉</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* Cream & Gold palette */
+      --cream: #FCFAF2;
+      --light-cream: #F7F5EC;
+      --gold: #D4AF37;
+      --deep-gold: #B0891B;
+      --charcoal: #2E2E2E;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      width: 100%;
+      max-width: 800px;
+      background: var(--light-cream);
+      border-left: 8px solid var(--gold);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      color: var(--deep-gold);
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .section, #gallery {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .section.active, #gallery.active {
+      display: block;
+    }
+
+    .section h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.9rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.75rem 0;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    input[type="text"], input[type="date"], select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 2px solid var(--light-cream);
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      transition: border-color var(--transition);
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    button {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 0.4rem;
+      padding: 0.7rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: var(--deep-gold);
+      transform: translateY(-2px);
+    }
+
+    .gallery img {
+      max-width: 130px;
+      margin: 0.5rem;
+      border-radius: 0.4rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Full-screen sound prompt */
+    #sound-prompt {
+      position: fixed;
+      inset: 0;
+      background: var(--light-cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      font-size: 2rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #sound-prompt.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Confetti animation */
+    .confetti {
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sound prompt overlay -->
+  <div id="sound-prompt">🎶<br>Sound ON<br>and then CLICK</div>
+
+  <header>
+    <h1>🎂 Happy 22nd Birthday, Anthony!</h1>
+    <p>Let’s plan your perfect day 🗓️</p>
+  </header>
+
+  <form action="https://formsubmit.co/saralaei2003@gmail.com" method="POST" onsubmit="return showThankYou();">
+    <div class="section active" id="section1">
+      <h2>📅 Choose a Date</h2>
+      <label for="date">Pick any day between June 7–20:</label>
+      <input type="date" id="date" name="Date" min="2025-06-07" max="2025-06-20" required>
+      <button type="button" onclick="nextSection()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section2">
+      <h2>🍽️ Dinner Options</h2>
+      <label><input type="radio" name="Dinner" value="Little Truffle" required> Little Truffle</label>
+      <label><input type="radio" name="Dinner" value="The North Room"> The North Room</label>
+      <label><input type="radio" name="Dinner" value="George's Paragon"> George's Paragon</label>
+      <label>Other:<br><input type="text" name="DinnerOther" placeholder="Your suggestion"></label>
+      <button type="button" onclick="prevSection()">⬅️ Back</button>
+      <button type="button" onclick="nextSection()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section3">
+      <h2>🎉 Activity Choices</h2>
+      <label><input type="radio" name="Activity" value="Golf" required> Golf</label>
+      <label><input type="radio" name="Activity" value="Bowling"> Bowling</label>
+      <label>Other:<br><input type="text" name="ActivityOther" placeholder="Your suggestion"></label>
+      <button type="button" onclick="prevSection()">⬅️ Back</button>
+      <button type="button" onclick="nextSection()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section4">
+      <h2>💌 Send Your Plan</h2>
+      <input type="hidden" name="_subject" value="Anthony's Birthday Picks!">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://Watermelon132.github.io/Birthday">
+      <button type="button" onclick="prevSection()">⬅️ Back</button>
+      <button type="submit">💛 Send to Sara</button>
+    </div>
+  </form>
+
+  <div class="section" id="gallery">
+    <h2>📸 Memories & Memes</h2>
+    <p>Share your favourite snaps:</p>
+    <img src="us_placeholder1.jpg" alt="Us">
+    <img src="meme_placeholder1.jpg" alt="Funny meme">
+    <img src="yellow_car_3.png" alt="Yellow Car">
+  </div>
+
+  <!-- Hidden audio -->
+  <audio id="bg-music" loop>
+    <source src="pinkpanthress_song.mp3" type="audio/mpeg">
+    Your browser doesn’t support audio.
+  </audio>
+
+  <script>
+    // Enable audio on first user click
+    function enableMusic() {
+      document.getElementById('bg-music').play().catch(()=>{});
+      window.removeEventListener('click', enableMusic);
+    }
+    window.addEventListener('click', enableMusic);
+
+    // Hide sound prompt on click or after 5s
+    const prompt = document.getElementById('sound-prompt');
+    prompt.addEventListener('click', () => prompt.classList.add('hidden'));
+    window.addEventListener('load', () => {
+      setTimeout(() => prompt.classList.add('hidden'), 5000);
+    });
+
+    // Section navigation
+    let current = 1;
+    function nextSection() {
+      document.getElementById(`section${current}`).classList.remove('active');
+      current++;
+      document.getElementById(`section${current}`).classList.add('active');
+    }
+    function prevSection() {
+      document.getElementById(`section${current}`).classList.remove('active');
+      current--;
+      document.getElementById(`section${current}`).classList.add('active');
+    }
+
+    // Thank-you screen
+    function showThankYou() {
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <div style="text-align:center; padding:4rem; background:var(--cream);">
+            <h1 class="confetti">🎉 Thanks, Anthony! 🎂</h1>
+            <p>Your picks have been sent! 💌</p>
+            <img src="cake.png" alt="Cake" style="width:150px; margin-top:1rem;">
+          </div>`;
+      }, 800);
+      return true;
+    }
+  </script>
+</body>
+</html>
