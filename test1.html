@@ -9,71 +9,70 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #FCFAF2;
-      --light-cream: #F7F5EC;
-      --gold: #D4AF37;
-      --deep-gold: #B0891B;
-      --charcoal: #2E2E2E;
-      --transition: 0.3s ease;
+      --yellow: #FFEB3B;          /* Bright yellow */
+      --yellow-light: #FFFDE7;    /* Very light yellow */
+      --yellow-accent: #FDD835;   /* Rich accent yellow */
+      --grey-dark: #333;
+      --transition: 0.25s ease;
     }
-    *, *::before, *::after {
+
+    * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background:
-        /* soft white overlay */ 
-        rgba(252,250,242,0.85),
-        /* your pattern/image */ 
-        url('bg-pattern.jpg') center/cover no-repeat;
-      color: var(--charcoal);
+      color: var(--grey-dark);
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 80%);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
-      min-height: 100vh;
-      line-height: 1.6;
-      position: relative;
-      overflow: hidden;
     }
 
     header {
-      width: 100%; max-width: 800px;
-      background: var(--light-cream);
-      border-left: 8px solid var(--gold);
+      width: 100%;
+      max-width: 800px;
+      background: var(--yellow);
       border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      text-align: center;
     }
+
     header h1 {
       font-family: 'Pacifico', cursive;
       font-size: 3rem;
-      color: var(--deep-gold);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
     }
-    header p { font-size: 1.1rem; font-weight: 500; }
+    header p {
+      font-size: 1.1rem;
+      color: #444;
+    }
 
     .section, #gallery {
       display: none;
-      width: 100%; max-width: 600px;
+      width: 100%;
+      max-width: 600px;
       background: #fff;
       border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       padding: 2rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      position: relative;
-      z-index: 1;
+      text-align: center;
     }
-    .section.active, #gallery.active { display: block; }
+    .section.active, #gallery.active {
+      display: block;
+    }
 
     .section h2 {
       font-family: 'Pacifico', cursive;
-      font-size: 1.9rem;
-      color: var(--gold);
+      font-size: 2rem;
+      color: var(--yellow-accent);
       margin-bottom: 1rem;
     }
 
@@ -81,73 +80,68 @@
       display: block;
       margin: 0.75rem 0;
       font-weight: 500;
-      color: var(--charcoal);
+      color: #555;
     }
 
     input[type="text"], input[type="date"], select {
-      width: 100%; padding: 0.6rem;
-      border: 2px solid var(--light-cream);
-      border-radius: 0.4rem;
+      width: 100%;
+      padding: 0.5rem;
       font-size: 1rem;
+      border: 2px solid var(--yellow-accent);
+      border-radius: 0.5rem;
       transition: border-color var(--transition);
     }
-    input:focus, select:focus { border-color: var(--gold); }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
 
     button {
-      background: var(--gold);
-      color: #fff;
+      background: var(--yellow-accent);
+      color: #333;
       border: none;
-      border-radius: 0.4rem;
-      padding: 0.7rem 1.6rem;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      margin: 1rem 0.5rem 0;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       transition: background var(--transition), transform var(--transition);
-      margin-top: 1rem;
     }
     button:hover {
-      background: var(--deep-gold);
+      background: var(--yellow);
       transform: translateY(-2px);
     }
 
     .gallery img {
-      max-width: 130px;
+      max-width: 140px;
       margin: 0.5rem;
-      border-radius: 0.4rem;
+      border-radius: 0.5rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     /* Full-screen sound prompt */
     #sound-prompt {
-      position: fixed; inset: 0;
-      background: var(--light-cream);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      z-index: 1000;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--yellow-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 2rem;
-      color: var(--charcoal);
+      color: var(--grey-dark);
+      z-index: 1000;
       cursor: pointer;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      transition: opacity 0.5s ease;
     }
+    /* new */
     #sound-prompt.hidden {
-      opacity: 0; visibility: hidden;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;   /* allow clicks through */
     }
-
-    /* Pop-up overlay */
-    #popup {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 999;
-      pointer-events: none;
-    }
-    #popup img {
-      max-width: 60%;
-      max-height: 60%;
-      border-radius: 0.5rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    }
-    #popup.hidden { display: none; }
 
     /* Confetti animation */
     .confetti {
@@ -156,7 +150,7 @@
     }
     @keyframes float {
       0%,100% { transform: translateY(0); }
-      50%     { transform: translateY(-6px); }
+      50%     { transform: translateY(-8px); }
     }
   </style>
 </head>
