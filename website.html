@@ -8,11 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
   <style>
-    /* CSS Variables for easy theming */
     :root {
-      --yellow: #FFD700;
-      --yellow-light: #FFF9C4;
-      --yellow-accent: #FFC107;
+      --yellow: #FFEB3B;          /* Bright yellow */
+      --yellow-light: #FFFDE7;    /* Very light yellow */
+      --yellow-accent: #FDD835;   /* Rich accent yellow */
       --grey-dark: #333;
       --transition: 0.25s ease;
     }
@@ -26,8 +25,7 @@
     body {
       font-family: 'Poppins', sans-serif;
       color: var(--grey-dark);
-      background: linear-gradient(135deg, var(--yellow-light) 0%, #FFFFFF 80%);
-      line-height: 1.6;
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 80%);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -49,16 +47,13 @@
     header h1 {
       font-family: 'Pacifico', cursive;
       font-size: 3rem;
-      color: #333;
       margin-bottom: 0.5rem;
     }
-
     header p {
       font-size: 1.1rem;
       color: #444;
     }
 
-    /* Card style sections */
     .section, #gallery {
       display: none;
       width: 100%;
@@ -102,7 +97,7 @@
     }
 
     button {
-      background: var(--yellow);
+      background: var(--yellow-accent);
       color: #333;
       border: none;
       border-radius: 0.5rem;
@@ -115,7 +110,7 @@
       transition: background var(--transition), transform var(--transition);
     }
     button:hover {
-      background: var(--yellow-accent);
+      background: var(--yellow);
       transform: translateY(-2px);
     }
 
@@ -126,6 +121,25 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
+    /* Full-screen sound prompt */
+    #sound-prompt {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--yellow-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--grey-dark);
+      z-index: 1000;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
+    #sound-prompt.hidden {
+      opacity: 0;
+    }
+
     /* Confetti animation */
     .confetti {
       font-size: 2rem;
@@ -133,11 +147,14 @@
     }
     @keyframes float {
       0%,100% { transform: translateY(0); }
-      50%    { transform: translateY(-8px); }
+      50%     { transform: translateY(-8px); }
     }
   </style>
 </head>
 <body>
+  <!-- Sound prompt overlay -->
+  <div id="sound-prompt">🎶 Sound ON and then CLICK</div>
+
   <header>
     <h1>🎂 Happy 22nd Birthday, Anthony!</h1>
     <p>Let’s lock in your special day together 🗓️</p>
@@ -188,19 +205,28 @@
     <img src="yellow_car_3.png" alt="Yellow Car">
   </div>
 
-  <!-- Audio: hidden controls, play on first user interaction -->
+  <!-- Hidden audio element -->
   <audio id="bg-music" loop>
     <source src="pinkpanthress_song.mp3" type="audio/mpeg">
     Your browser doesn’t support audio.
   </audio>
+
   <script>
-    // Play music once user interacts
+    // Play audio on first click anywhere
     function enableMusic() {
-      const audio = document.getElementById('bg-music');
-      audio.play().catch(() => {});
-      document.removeEventListener('click', enableMusic);
+      document.getElementById('bg-music').play().catch(()=>{});
+      window.removeEventListener('click', enableMusic);
     }
-    document.addEventListener('click', enableMusic);
+    window.addEventListener('click', enableMusic);
+
+    // Dismiss sound-prompt after 5s or on click
+    const prompt = document.getElementById('sound-prompt');
+    prompt.addEventListener('click', () => prompt.classList.add('hidden'));
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        prompt.classList.add('hidden');
+      }, 5000);
+    });
 
     // Section navigation
     let current = 1;
@@ -215,7 +241,7 @@
       document.getElementById(`section${current}`).classList.add('active');
     }
 
-    // Thank you screen
+    // Thank-you screen
     function showThankYou() {
       setTimeout(() => {
         document.body.innerHTML = `
