@@ -19,22 +19,20 @@
       box-sizing: border-box;
       margin: 0; padding: 0;
     }
-    body {
+     body {
       font-family: 'Poppins', sans-serif;
-      color: var(--grey-dark);
-      /* 1) your yellow tint overlay */
-      background-color: var(--yellow-light);
-      /* 2) your photo behind everything */
-      background-image: url('us1.jpg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      /* keep those layout rules you already have */
+      background:
+        /* soft white overlay */ 
+        rgba(252,250,242,0.85),
+        /* your pattern/image */ 
+        url('bg-pattern.jpg') center/cover no-repeat;
+      color: var(--charcoal);
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
       min-height: 100vh;
+      line-height: 1.6;
       position: relative;
       overflow: hidden;
     }
