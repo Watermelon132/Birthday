@@ -136,8 +136,11 @@
       cursor: pointer;
       transition: opacity 0.5s ease;
     }
+    /* new */
     #sound-prompt.hidden {
       opacity: 0;
+      visibility: hidden;
+      pointer-events: none;   /* allow clicks through */
     }
 
     /* Confetti animation */
@@ -221,10 +224,14 @@
 
     // Dismiss sound-prompt after 5s or on click
     const prompt = document.getElementById('sound-prompt');
-    prompt.addEventListener('click', () => prompt.classList.add('hidden'));
+    prompt.addEventListener('click', () => {
+      prompt.classList.add('hidden');
+      setTimeout(() => prompt.remove(), 600);  // remove element entirely
+    });
     window.addEventListener('load', () => {
       setTimeout(() => {
         prompt.classList.add('hidden');
+        setTimeout(() => prompt.remove(), 600);
       }, 5000);
     });
 
