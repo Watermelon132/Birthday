@@ -9,13 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #FCFAF2;
-      --light-cream: #F7F5EC;
-      --gold: #D4AF37;
-      --deep-gold: #B0891B;
+      /* Bright yellow palette */
+      --yellow-light: #FFFDE7;    /* very pale yellow */
+      --yellow: #FFEB3B;          /* classic yellow */
+      --yellow-accent: #FDD835;   /* richer accent */
+      --yellow-deep: #FBC02D;     /* darker hover */
       --charcoal: #2E2E2E;
       --transition: 0.3s ease;
     }
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0; padding: 0;
@@ -23,26 +25,24 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background:
-        /* soft white overlay */ 
-        rgba(252,250,242,0.85),
-        /* your pattern/image */ 
-        url('bg-pattern.jpg') center/cover no-repeat;
       color: var(--charcoal);
+      /* overlay your photos or pattern with a pale yellow tint */
+      background:
+        var(--yellow-light)
+        url('bg-pattern.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
       min-height: 100vh;
-      line-height: 1.6;
       position: relative;
       overflow: hidden;
     }
 
     header {
       width: 100%; max-width: 800px;
-      background: var(--light-cream);
-      border-left: 8px solid var(--gold);
+      background: var(--yellow);
+      border-left: 8px solid var(--yellow-accent);
       border-radius: 0.5rem;
       padding: 2rem;
       margin-bottom: 2rem;
@@ -52,10 +52,13 @@
     header h1 {
       font-family: 'Pacifico', cursive;
       font-size: 3rem;
-      color: var(--deep-gold);
+      color: var(--charcoal);
       margin-bottom: 0.3rem;
     }
-    header p { font-size: 1.1rem; font-weight: 500; }
+    header p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
 
     .section, #gallery {
       display: none;
@@ -65,15 +68,16 @@
       padding: 2rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
     }
-    .section.active, #gallery.active { display: block; }
+    .section.active, #gallery.active {
+      display: block;
+    }
 
     .section h2 {
       font-family: 'Pacifico', cursive;
       font-size: 1.9rem;
-      color: var(--gold);
+      color: var(--yellow-accent);
       margin-bottom: 1rem;
     }
 
@@ -84,17 +88,24 @@
       color: var(--charcoal);
     }
 
-    input[type="text"], input[type="date"], select {
-      width: 100%; padding: 0.6rem;
-      border: 2px solid var(--light-cream);
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 2px solid var(--yellow-light);
       border-radius: 0.4rem;
       font-size: 1rem;
       transition: border-color var(--transition);
     }
-    input:focus, select:focus { border-color: var(--gold); }
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
 
     button {
-      background: var(--gold);
+      background: var(--yellow);
       color: #fff;
       border: none;
       border-radius: 0.4rem;
@@ -104,9 +115,10 @@
       cursor: pointer;
       transition: background var(--transition), transform var(--transition);
       margin-top: 1rem;
+      position: relative; z-index: 1;
     }
     button:hover {
-      background: var(--deep-gold);
+      background: var(--yellow-deep);
       transform: translateY(-2px);
     }
 
@@ -120,7 +132,7 @@
     /* Full-screen sound prompt */
     #sound-prompt {
       position: fixed; inset: 0;
-      background: var(--light-cream);
+      background: var(--yellow-light);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       z-index: 1000;
@@ -131,6 +143,7 @@
     }
     #sound-prompt.hidden {
       opacity: 0; visibility: hidden;
+      pointer-events: none;
     }
 
     /* Pop-up overlay */
@@ -142,8 +155,7 @@
       pointer-events: none;
     }
     #popup img {
-      max-width: 60%;
-      max-height: 60%;
+      max-width: 60%; max-height: 60%;
       border-radius: 0.5rem;
       box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     }
@@ -161,8 +173,9 @@
   </style>
 </head>
 <body>
+  
   <!-- Sound prompt -->
-  <div id="sound-prompt">🎶<br>Sound ON<br>and then CLICK</div>
+  <div id="sound-prompt">🎶<br>Sound ON and then CLICK</div>
 
   <header>
     <h1>🎂 Happy 22nd Birthday, Anthony!</h1>
@@ -172,8 +185,8 @@
   <form action="https://formsubmit.co/saralaei2003@gmail.com" method="POST" onsubmit="return showThankYou();">
     <div class="section active" id="section1">
       <h2>📅 Choose a Date</h2>
-      <label for="date">Pick any day between June 7–20:</label>
-      <input type="date" id="date" name="Date" min="2025-06-07" max="2025-06-20" required>
+      <label for="date">Pick any day between June 14–21:</label>
+      <input type="date" id="date" name="Date" min="2025-06-14" max="2025-06-21" required>
       <button type="button" onclick="handleNext()">Next ➡️</button>
     </div>
 
@@ -271,7 +284,7 @@
             <p>Your picks have been sent! 💌</p>
             <img src="cake.png" alt="Cake" style="width:150px; margin-top:1rem;">
           </div>`;
-      }, 800);
+      }, 5000);
       return true;
     }
   </script>
