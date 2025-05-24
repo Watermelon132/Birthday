@@ -9,61 +9,103 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --yellow: #FFEB3B;          /* Bright yellow */
-      --yellow-light: #FFFDE7;    /* Very light yellow */
-      --yellow-accent: #FDD835;   /* Rich accent yellow */
-      --grey-dark: #333;
+      --yellow-light: #FFFCB3;    /* buttery pale */
+      --yellow: #FFE54C;          /* sunny yellow */
+      --yellow-accent: #FFD633;   /* pop accent */
+      --yellow-deep: #FFC107;     /* darker hover */
+      --charcoal: #2E2E2E;
       --transition: 0.25s ease;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
+    }
+
+    /* ---- BACKGROUND SLIDESHOW ---- */
+    #bg-slideshow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+    #bg-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: slideShow 16s infinite;
+    }
+    /* stagger each by 4s */
+    #bg-slideshow img:nth-child(1) { animation-delay: 0s; }
+    #bg-slideshow img:nth-child(2) { animation-delay: 4s; }
+    #bg-slideshow img:nth-child(3) { animation-delay: 8s; }
+    #bg-slideshow img:nth-child(4) { animation-delay: 12s; }
+
+    @keyframes slideShow {
+      0%   { opacity: 0; }
+      5%   { opacity: 1; }
+      25%  { opacity: 1; }
+      30%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* yellow tint overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--yellow-light);
+      z-index: -1;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      color: var(--grey-dark);
-      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 80%);
-      min-height: 100vh;
+      color: var(--charcoal);
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem 1rem;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* cute header */
     header {
-      width: 100%;
-      max-width: 800px;
+      width: 100%; max-width: 800px;
       background: var(--yellow);
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
+      border: 4px dashed var(--yellow-accent);
+      border-radius: 1rem;
       padding: 2rem;
       margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     header h1 {
       font-family: 'Pacifico', cursive;
       font-size: 3rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
+      color: var(--charcoal);
     }
     header p {
-      font-size: 1.1rem;
-      color: #444;
+      font-size: 1.2rem;
+      font-weight: 500;
     }
 
+    /* cards */
     .section, #gallery {
       display: none;
-      width: 100%;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      width: 100%; max-width: 600px;
+      background: rgba(255,255,255,0.9);
+      border: 2px dashed var(--yellow-accent);
+      border-radius: 1rem;
       padding: 2rem;
       margin-bottom: 1.5rem;
-      text-align: center;
+      position: relative; z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .section.active, #gallery.active {
       display: block;
@@ -80,70 +122,86 @@
       display: block;
       margin: 0.75rem 0;
       font-weight: 500;
-      color: #555;
+      color: var(--charcoal);
     }
 
-    input[type="text"], input[type="date"], select {
+    input[type="text"],
+    input[type="date"],
+    select {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.6rem;
+      border: 2px solid var(--yellow);
+      border-radius: 0.8rem;
       font-size: 1rem;
-      border: 2px solid var(--yellow-accent);
-      border-radius: 0.5rem;
       transition: border-color var(--transition);
     }
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
+      border-color: var(--yellow-deep);
       outline: none;
-      border-color: var(--yellow);
     }
 
     button {
       background: var(--yellow-accent);
-      color: #333;
+      color: #fff;
       border: none;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      margin: 1rem 0.5rem 0;
+      border-radius: 1rem;
+      padding: 0.6rem 1.6rem;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       transition: background var(--transition), transform var(--transition);
+      margin-top: 1rem;
+      position: relative; z-index: 1;
     }
     button:hover {
-      background: var(--yellow);
+      background: var(--yellow-deep);
       transform: translateY(-2px);
     }
 
     .gallery img {
-      max-width: 140px;
+      max-width: 120px;
       margin: 0.5rem;
-      border-radius: 0.5rem;
+      border: 2px dotted var(--yellow);
+      border-radius: 0.8rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    /* Full-screen sound prompt */
+    /* sound prompt */
     #sound-prompt {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      position: fixed; inset: 0;
       background: var(--yellow-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: var(--grey-dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       z-index: 1000;
+      font-size: 2rem;
+      color: var(--charcoal);
       cursor: pointer;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
-    /* new */
     #sound-prompt.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;   /* allow clicks through */
+      opacity: 0; visibility: hidden;
+      pointer-events: none;
     }
 
-    /* Confetti animation */
+    /* pop-up */
+    #popup {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+      pointer-events: none;
+    }
+    #popup img {
+      max-width: 60%; max-height: 60%;
+      border: 4px dashed var(--yellow);
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    #popup.hidden { display: none; }
+
+    /* confetti */
     .confetti {
       font-size: 2rem;
       animation: float 3s ease-in-out infinite;
@@ -155,6 +213,7 @@
   </style>
 </head>
 <body>
+
   <!-- Sound prompt overlay -->
   <div id="sound-prompt">🎶 Sound ON and then CLICK</div>
 
@@ -261,5 +320,79 @@
       return true;
     }
   </script>
+<canvas id="confetti-canvas"></canvas>
+<script>
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = 998;
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = [];
+  const colors = ["#D8B4F8", "#B388EB", "#9F79EE", "#C084FC", "#E9D5FF"];
+
+  for (let i = 0; i < 150; i++) {
+    confetti.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * 40 + 10,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 10 - 10,
+      tiltAngle: 0,
+      tiltAngleIncrement: Math.random() * 0.1 + 0.05
+    });
+  }
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((c, i) => {
+      ctx.beginPath();
+      ctx.lineWidth = c.r / 2;
+      ctx.strokeStyle = c.color;
+      ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+      ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+      ctx.stroke();
+    });
+    updateConfetti();
+  }
+
+  function updateConfetti() {
+    confetti.forEach((c, i) => {
+      c.tiltAngle += c.tiltAngleIncrement;
+      c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+      c.x += Math.sin(0.5);
+      c.tilt = Math.sin(c.tiltAngle - i) * 15;
+
+      if (c.y > canvas.height) {
+        c.y = -10;
+        c.x = Math.random() * canvas.width;
+      }
+    });
+  }
+
+  let animation;
+  function animateConfetti() {
+    drawConfetti();
+    animation = requestAnimationFrame(animateConfetti);
+  }
+
+  // Start slightly after load
+  setTimeout(() => {
+    animateConfetti();
+    setTimeout(() => {
+      cancelAnimationFrame(animation);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 3000);
+  }, 300); // Delay start slightly for smoother effect
+</script>
+
 </body>
 </html>
