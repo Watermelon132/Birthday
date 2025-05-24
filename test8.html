@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Anthony! 🎉</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --yellow-light: #FFFCB3;    /* buttery pale */
+      --yellow: #FFE54C;          /* sunny yellow */
+      --yellow-accent: #FFD633;   /* pop accent */
+      --yellow-deep: #FFC107;     /* darker hover */
+      --charcoal: #2E2E2E;
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+
+    /* ---- BACKGROUND SLIDESHOW ---- */
+    #bg-slideshow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+    #bg-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: slideShow 16s infinite;
+    }
+    /* stagger each by 4s */
+    #bg-slideshow img:nth-child(1) { animation-delay: 0s; }
+    #bg-slideshow img:nth-child(2) { animation-delay: 4s; }
+    #bg-slideshow img:nth-child(3) { animation-delay: 8s; }
+    #bg-slideshow img:nth-child(4) { animation-delay: 12s; }
+
+    @keyframes slideShow {
+      0%   { opacity: 0; }
+      5%   { opacity: 1; }
+      25%  { opacity: 1; }
+      30%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* yellow tint overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--yellow-light);
+      z-index: -1;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* cute header */
+    header {
+      width: 100%; max-width: 800px;
+      background: var(--yellow);
+      border: 4px dashed var(--yellow-accent);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      margin-bottom: 0.2rem;
+      color: var(--charcoal);
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* cards */
+    .section, #gallery {
+      display: none;
+      width: 100%; max-width: 600px;
+      background: rgba(255,255,255,0.9);
+      border: 2px dashed var(--yellow-accent);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .section.active, #gallery.active {
+      display: block;
+    }
+
+    .section h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: var(--yellow-accent);
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.75rem 0;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 2px solid var(--yellow);
+      border-radius: 0.8rem;
+      font-size: 1rem;
+      transition: border-color var(--transition);
+    }
+    input:focus,
+    select:focus {
+      border-color: var(--yellow-deep);
+      outline: none;
+    }
+
+    button {
+      background: var(--yellow-accent);
+      color: #fff;
+      border: none;
+      border-radius: 1rem;
+      padding: 0.6rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background var(--transition), transform var(--transition);
+      margin-top: 1rem;
+      position: relative; z-index: 1;
+    }
+    button:hover {
+      background: var(--yellow-deep);
+      transform: translateY(-2px);
+    }
+
+    .gallery img {
+      max-width: 120px;
+      margin: 0.5rem;
+      border: 2px dotted var(--yellow);
+      border-radius: 0.8rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* sound prompt */
+    #sound-prompt {
+      position: fixed; inset: 0;
+      background: var(--yellow-light);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 1000;
+      font-size: 2rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #sound-prompt.hidden {
+      opacity: 0; visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* pop-up */
+    #popup {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+      pointer-events: none;
+    }
+    #popup img {
+      max-width: 60%; max-height: 60%;
+      border: 4px dashed var(--yellow);
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    #popup.hidden { display: none; }
+
+    /* confetti */
+    .confetti {
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- fading slideshow of your pics -->
+  <div id="bg-slideshow">
+    <img src="IMG_0968.jpeg" alt="Us 1">
+    <img src="IMG_0968.jpeg" alt="Us 2">
+    <img src="IMG_0968.jpeg" alt="Us 3">
+    <img src="IMG_0968.jpeg" alt="Us 4">
+  </div>
+
+  <!-- sound prompt -->
+  <div id="sound-prompt">🎶<br>Sound ON & then CLICK</div>
+
+  <header>
+    <h1>🎂 Happy 22nd Birthday, Anthony!</h1>
+    <p>Let’s plan your perfect day 🗓️</p>
+  </header>
+
+  <form action="https://formsubmit.co/saralaei2003@gmail.com" method="POST" onsubmit="return showThankYou();">
+    <div class="section active" id="section1">
+      <h2>📅 Pick a Date</h2>
+      <label for="date">Choose between June 14–21:</label>
+      <input type="date" id="date" name="Date" min="2025-06-14" max="2025-06-21" required>
+      <button type="button" onclick="handleNext()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section2">
+      <h2>🍽️ Dinner Time</h2>
+      <label><input type="radio" name="Dinner" value="Little Truffle" required> Little Truffle</label>
+      <label><input type="radio" name="Dinner" value="The North Room"> The North Room</label>
+      <label><input type="radio" name="Dinner" value="George's Paragon"> George's Paragon</label>
+      <label>Other:<br><input type="text" name="DinnerOther" placeholder="Your idea"></label>
+      <button type="button" onclick="handlePrev()">⬅️ Back</button>
+      <button type="button" onclick="handleNext()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section3">
+      <h2>🎉 What to Do?</h2>
+      <label><input type="radio" name="Activity" value="Golf" required> Golf</label>
+      <label><input type="radio" name="Activity" value="Bowling"> Bowling</label>
+      <label>Other:<br><input type="text" name="ActivityOther" placeholder="Your idea"></label>
+      <button type="button" onclick="handlePrev()">⬅️ Back</button>
+      <button type="button" onclick="handleNext()">Next ➡️</button>
+    </div>
+
+    <div class="section" id="section4">
+      <h2>💌 Send It!</h2>
+      <input type="hidden" name="_subject" value="Anthony's Birthday Picks!">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://Watermelon132.github.io/Birthday">
+      <button type="button" onclick="handlePrev()">⬅️ Back</button>
+      <button type="submit">💛 Send to Sara</button>
+    </div>
+  </form>
+
+  <div class="section" id="gallery">
+    <h2>📸 Memories & Memes</h2>
+    <p>Share your favourite snaps:</p>
+    <img src="IMG_0968.jpeg" alt="Us">
+    <img src="IMG_0968.jpeg" alt="Meme">
+    <img src="IMG_0968.jpeg" alt="Yellow Car">
+  </div>
+
+  <!-- audio & popup -->
+  <audio id="bg-music" loop>
+    <source src="pinkpanthress_song.mp3" type="audio/mpeg">
+  </audio>
+  <div id="popup" class="hidden">
+    <img id="popup-img" src="" alt="Popup">
+  </div>
+
+  <script>
+    // sound prompt
+    const prompt = document.getElementById('sound-prompt');
+    window.addEventListener('click', () => {
+      document.getElementById('bg-music').play().catch(()=>{});
+      prompt.classList.add('hidden');
+    });
+    window.addEventListener('load', () => {
+      setTimeout(() => prompt.classList.add('hidden'), 5000);
+    });
+
+    // pop-up logic
+    const popups = ['popup1.png','popup2.png','popup3.png'];
+    const popupEl = document.getElementById('popup');
+    const popupImg = document.getElementById('popup-img');
+    function showPopup(cb) {
+      popupImg.src = popups[Math.floor(Math.random()*popups.length)];
+      popupEl.classList.remove('hidden');
+      setTimeout(()=>{
+        popupEl.classList.add('hidden');
+        cb();
+      },2500);
+    }
+
+    // nav
+    let current = 1;
+    function handleNext(){ showPopup(()=>navigate(1)); }
+    function handlePrev(){ showPopup(()=>navigate(-1)); }
+    function navigate(dir){
+      document.getElementById(`section${current}`).classList.remove('active');
+      current += dir;
+      document.getElementById(`section${current}`).classList.add('active');
+    }
+
+    // thank you
+    function showThankYou(){
+      setTimeout(()=>{
+        document.body.innerHTML = `
+          <div style="text-align:center; padding:4rem; background:var(--yellow-light);">
+            <h1 class="confetti">🎉 Thanks, Anthony! 🎂</h1>
+            <p>Your picks are sent! 💌</p>
+          </div>`;
+      },800);
+      return true;
+    }
+  </script>
+
+  <canvas id="confetti-canvas"></canvas>
+    <script>
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.style.position = 'fixed';
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = 998;
+    
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    
+      const confetti = [];
+      const colors = ["#FFD633", "#FFEB3B", "#FBC02D", "#FFFCB3", "#ffffff"];
+    
+      for (let i = 0; i < 150; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 40 + 10,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 10,
+          tiltAngle: 0,
+          tiltAngleIncrement: Math.random() * 0.1 + 0.05
+        });
+      }
+    
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach((c, i) => {
+          ctx.beginPath();
+          ctx.lineWidth = c.r / 2;
+          ctx.strokeStyle = c.color;
+          ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+          ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+          ctx.stroke();
+        });
+        updateConfetti();
+      }
+    
+      function updateConfetti() {
+        confetti.forEach((c, i) => {
+          c.tiltAngle += c.tiltAngleIncrement;
+          c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+          c.x += Math.sin(0.5);
+          c.tilt = Math.sin(c.tiltAngle - i) * 15;
+    
+          if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+          }
+        });
+      }
+    
+      let animation;
+      function animateConfetti() {
+        drawConfetti();
+        animation = requestAnimationFrame(animateConfetti);
+      }
+    
+      // Start slightly after load
+      setTimeout(() => {
+        animateConfetti();
+        setTimeout(() => {
+          cancelAnimationFrame(animation);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }, 3000);
+      }, 1000); // Delay start slightly for smoother effect
+    </script>
+
+</body>
+</html>
