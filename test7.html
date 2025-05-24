@@ -331,78 +331,78 @@
   </script>
 
   <canvas id="confetti-canvas"></canvas>
-<script>
-  const canvas = document.getElementById("confetti-canvas");
-  const ctx = canvas.getContext("2d");
-  canvas.style.position = 'fixed';
-  canvas.style.top = 0;
-  canvas.style.left = 0;
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = 998;
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const confetti = [];
-  const colors = ["#FFD633", "#FFEB3B", "#FBC02D", "#FFFCB3", "#ffffff"];
-
-  for (let i = 0; i < 150; i++) {
-    confetti.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      r: Math.random() * 6 + 4,
-      d: Math.random() * 40 + 10,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: Math.random() * 10 - 10,
-      tiltAngle: 0,
-      tiltAngleIncrement: Math.random() * 0.1 + 0.05
-    });
-  }
-
-  function drawConfetti() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    confetti.forEach((c, i) => {
-      ctx.beginPath();
-      ctx.lineWidth = c.r / 2;
-      ctx.strokeStyle = c.color;
-      ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
-      ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
-      ctx.stroke();
-    });
-    updateConfetti();
-  }
-
-  function updateConfetti() {
-    confetti.forEach((c, i) => {
-      c.tiltAngle += c.tiltAngleIncrement;
-      c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
-      c.x += Math.sin(0.5);
-      c.tilt = Math.sin(c.tiltAngle - i) * 15;
-
-      if (c.y > canvas.height) {
-        c.y = -10;
-        c.x = Math.random() * canvas.width;
+    <script>
+      const canvas = document.getElementById("confetti-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.style.position = 'fixed';
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = 998;
+    
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    
+      const confetti = [];
+      const colors = ["#FFD633", "#FFEB3B", "#FBC02D", "#FFFCB3", "#ffffff"];
+    
+      for (let i = 0; i < 150; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 40 + 10,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 10,
+          tiltAngle: 0,
+          tiltAngleIncrement: Math.random() * 0.1 + 0.05
+        });
       }
-    });
-  }
-
-  let animation;
-  function animateConfetti() {
-    drawConfetti();
-    animation = requestAnimationFrame(animateConfetti);
-  }
-
-  // Start slightly after load
-  setTimeout(() => {
-    animateConfetti();
-    setTimeout(() => {
-      cancelAnimationFrame(animation);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }, 3000);
-  }, 1000); // Delay start slightly for smoother effect
-</script>
+    
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach((c, i) => {
+          ctx.beginPath();
+          ctx.lineWidth = c.r / 2;
+          ctx.strokeStyle = c.color;
+          ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+          ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+          ctx.stroke();
+        });
+        updateConfetti();
+      }
+    
+      function updateConfetti() {
+        confetti.forEach((c, i) => {
+          c.tiltAngle += c.tiltAngleIncrement;
+          c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+          c.x += Math.sin(0.5);
+          c.tilt = Math.sin(c.tiltAngle - i) * 15;
+    
+          if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+          }
+        });
+      }
+    
+      let animation;
+      function animateConfetti() {
+        drawConfetti();
+        animation = requestAnimationFrame(animateConfetti);
+      }
+    
+      // Start slightly after load
+      setTimeout(() => {
+        animateConfetti();
+        setTimeout(() => {
+          cancelAnimationFrame(animation);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }, 3000);
+      }, 1000); // Delay start slightly for smoother effect
+    </script>
 
 </body>
 </html>
