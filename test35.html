@@ -217,16 +217,16 @@
   <div id="sound-prompt">🎶 Sound ON and then CLICK</div>
 
   <header>
-    <h1>🎂 Happy 22nd Birthday, Anthony!</h1>
-    <p>Let’s lock in your special day together 🗓️</p>
+    <h1>🎂 Happy *almost* 22nd Birthday, Anthony!</h1>
+    <p>Let’s lock in this high-yield day, you absolute leg 🗓️</p>
   </header>
 
   <form action="https://formsubmit.co/saralaei2003@gmail.com" method="POST" onsubmit="return showThankYou();">
     <!-- Section 1 -->
     <div class="section active" id="section1">
       <h2>📅 Choose a Date</h2>
-      <label for="date">Pick any day between June 7–20:</label>
-      <input type="date" id="date" name="Date" min="2025-06-07" max="2025-06-20" required>
+      <label for="date">Pick any day between June 14–21:</label>
+      <input type="date" id="date" name="Date" min="2025-06-14" max="2025-06-21" required>
       <button type="button" onclick="nextSection()">Next ➡️</button>
     </div>
 
@@ -244,7 +244,7 @@
     <!-- Section 3 -->
     <div class="section" id="section3">
       <h2>🎉 Activity Choices</h2>
-      <label><input type="radio" name="Activity" value="Golf" required> Golf</label>
+      <label><input type="radio" name="Activity" value="*mini* Golf" required> *mini* Golf</label>
       <label><input type="radio" name="Activity" value="Bowling"> Bowling</label>
       <label>Other: <input type="text" name="ActivityOther" placeholder="Your idea"></label>
       <button type="button" onclick="prevSection()">⬅️ Back</button>
@@ -253,6 +253,16 @@
 
     <!-- Section 4 -->
     <div class="section" id="section4">
+      <h2>💕 Do you want to be my passenger princess for the day? 💅🚗</h2>
+      <label><input type="radio" name="Activity" value="YASSSSS, born to slay ✨" required> YASSSSS ✨</label>
+      <label><input type="radio" name="Activity" value="OUI OUI, JE SUIS UNE PRINCESS 💁‍♀️👑✨"> princess</label>
+      <label>Other: <input type="text" name="ActivityOther" placeholder="Your idea"></label>
+      <button type="button" onclick="prevSection()">⬅️ Back</button>
+      <button type="button" onclick="nextSection()">Next ➡️</button>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section" id="section5">
       <h2>💌 Send Your Plan</h2>
       <input type="hidden" name="_subject" value="Anthony's Birthday Picks!">
       <input type="hidden" name="_captcha" value="false">
@@ -404,7 +414,7 @@
       setTimeout(()=>{
         cancelAnimationFrame(animation);
         ctx.clearRect(0,0,canvas.width,canvas.height);
-      },5000);
+      }, 15000);
     },300);
 
     // Lightbox
