@@ -97,7 +97,7 @@
 
     /* cards */
     .section, #gallery {
-      display: none;
+      display: active;
       width: 100%; max-width: 600px;
       background: rgba(255,255,255,0.9);
       border: 2px dashed var(--yellow-accent);
@@ -211,23 +211,6 @@
       50%     { transform: translateY(-8px); }
     }
 
-    <!-- 1) Update your #gallery markup: wrap images in a grid container -->
-    <div class="section" id="gallery">
-      <h2>📸 Memories & Memes</h2>
-      <p>Click any photo to enlarge:</p>
-      <div class="gallery-grid">
-        <img src="us.png" alt="Us" data-full="us.png">
-        <img src="us.png" alt="Funny meme" data-full="us.png">
-        <img src="us.png" alt="Yellow Car" data-full="us.png">
-        <!-- add as many as you like -->
-      </div>
-    </div>
-    
-    <!-- 2) Add this lightbox overlay just before </body> -->
-    <div id="lightbox">
-      <button id="lb-close">&times;</button>
-      <img src="" alt="Enlarged photo">
-    </div>
 
     /* — Grid layout for thumbnails — */
     .gallery-grid {
@@ -396,7 +379,7 @@
             <p>Your birthday picks are on their way! 💛</p>
             <img src="cake.png" alt="Cake" style="width:150px; margin-top:1rem;">
           </div>`;
-      }, 5000);
+      }, 50000);
       return true;
     }
   </script>
@@ -494,6 +477,22 @@
   });
 
 </script>
+
+  <div class="section" id="gallery">
+      <h2>📸 Memories & Memes</h2>
+      <p>Click any photo to enlarge:</p>
+      <div class="gallery-grid">
+        <img src="us.png" alt="Us" data-full="us.png">
+        <img src="us.png" alt="Funny meme" data-full="us.png">
+        <img src="us.png" alt="Yellow Car" data-full="us.png">
+      </div>
+    </div>
+    
+    
+    <div id="lightbox">
+      <button id="lb-close">&times;</button>
+      <img src="" alt="Enlarged photo">
+    </div>
 
 </body>
 </html>
