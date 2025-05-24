@@ -297,7 +297,7 @@
     function nextSection() {
       document.getElementById(`section${current}`).classList.remove('active');
       current++;
-      if (current === 5) {
+      if (current === 1) {
         // reveal gallery when we hit 5
         document.getElementById('gallery').classList.add('active');
       } else {
@@ -305,7 +305,7 @@
       }
     }
     function prevSection() {
-      if (current === 5) {
+      if (current === 1) {
         document.getElementById('gallery').classList.remove('active');
         current = 4;
         document.getElementById('section4').classList.add('active');
