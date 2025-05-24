@@ -160,13 +160,15 @@
       transform: translateY(-2px);
     }
 
-    .gallery img {
+    #gallery img {
       max-width: 120px;
+      height: auto;
       margin: 0.5rem;
       border: 2px dotted var(--yellow);
       border-radius: 0.8rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
 
     /* sound prompt */
     #sound-prompt {
@@ -190,8 +192,8 @@
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.4);
       display: flex; align-items: center; justify-content: center;
-      z-index: 999;
-      pointer-events: none;
+      z-index: 9999;
+      pointer-events: auto;
     }
     #popup img {
       max-width: 60%; max-height: 60%;
