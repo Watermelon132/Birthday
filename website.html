@@ -210,6 +210,86 @@
       0%,100% { transform: translateY(0); }
       50%     { transform: translateY(-8px); }
     }
+
+    <!-- 1) Update your #gallery markup: wrap images in a grid container -->
+    <div class="section" id="gallery">
+      <h2>📸 Memories & Memes</h2>
+      <p>Click any photo to enlarge:</p>
+      <div class="gallery-grid">
+        <img src="us_placeholder1.jpg" alt="Us" data-full="us_full1.jpg">
+        <img src="meme_placeholder1.jpg" alt="Funny meme" data-full="meme_full1.jpg">
+        <img src="yellow_car_3.png" alt="Yellow Car" data-full="yellow_car_full.png">
+        <!-- add as many as you like -->
+      </div>
+    </div>
+    
+    <!-- 2) Add this lightbox overlay just before </body> -->
+    <div id="lightbox">
+      <button id="lb-close">&times;</button>
+      <img src="" alt="Enlarged photo">
+    </div>
+
+    /* — Grid layout for thumbnails — */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      justify-items: center;
+    }
+    .gallery-grid img {
+      width: 100%;
+      max-width: 140px;
+      border: 2px dotted var(--yellow);
+      border-radius: 0.8rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      border-color: var(--yellow-deep);
+    }
+    
+    /* — Lightbox overlay — */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 1001;
+    }
+    #lightbox.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+    #lb-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1002;
+      transition: transform var(--transition);
+    }
+    #lb-close:hover {
+      transform: scale(1.2);
+    }
+
+
   </style>
 </head>
 <body>
@@ -392,6 +472,27 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }, 3000);
   }, 300); // Delay start slightly for smoother effect
+
+
+  const galleryImgs = document.querySelectorAll('.gallery-grid img');
+  const lightbox    = document.getElementById('lightbox');
+  const lbImg       = lightbox.querySelector('img');
+  const lbClose     = document.getElementById('lb-close');
+  
+  galleryImgs.forEach(img => {
+    img.addEventListener('click', () => {
+      // use data-full if you have high-res versions
+      lbImg.src = img.dataset.full || img.src;
+      lightbox.classList.add('visible');
+    });
+  });
+  
+  // close when clicking the “×” or outside the image
+  lbClose.addEventListener('click', () => lightbox.classList.remove('visible'));
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) lightbox.classList.remove('visible');
+  });
+
 </script>
 
 </body>
